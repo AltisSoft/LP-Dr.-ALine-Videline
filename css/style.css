@@ -22,6 +22,9 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    /* impede que itens de flex/grid "empurrem" a página para o lado
+       porque o navegador dá min-width:auto por padrão a eles */
+    min-width: 0;
 }
 
 html {
@@ -29,6 +32,7 @@ html {
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
     overflow-x: hidden;
+    max-width: 100vw;
 }
 
 body {
@@ -37,7 +41,9 @@ body {
     background: var(--cream);
     line-height: 1.6;
     overflow-x: hidden;
+    max-width: 100vw;
     width: 100%;
+    position: relative;
 }
 
 img {
@@ -176,6 +182,8 @@ p {
     transition: .3s ease;
     padding: 16px 0;
     width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
 }
 
 .site-header.scrolled {
@@ -189,14 +197,16 @@ p {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 28px;
+    gap: 12px;
+    max-width: 100%;
 }
 
 .brand {
     display: flex;
     align-items: center;
     gap: 12px;
-    min-width: fit-content;
+    min-width: 0;
+    max-width: 100%;
 }
 
 .brand-mark {
@@ -226,8 +236,9 @@ p {
     display: block;
     font-family: "Cormorant Garamond", serif;
     font-size: 1.34rem;
-    line-height: 1;
-    white-space: nowrap;
+    line-height: 1.1;
+    white-space: normal;
+    overflow-wrap: break-word;
 }
 
 .brand-copy span {
@@ -1526,7 +1537,7 @@ footer p {
 }
 
 /* Celulares pequenos */
-@media (max-width: 400px) {
+@media (max-width: 420px) {
     .container {
         width: min(calc(100% - 20px), var(--container));
     }
@@ -1562,6 +1573,18 @@ footer p {
         min-height: 48px;
         padding: 0 18px;
         font-size: .92rem;
+    }
+
+    .nav {
+        gap: 8px;
+    }
+
+    .brand-copy span {
+        display: none;
+    }
+
+    .brand-copy strong {
+        font-size: .98rem;
     }
 }
 
