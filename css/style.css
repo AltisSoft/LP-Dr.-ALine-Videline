@@ -22,8 +22,6 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    /* impede que itens de flex/grid "empurrem" a página para o lado
-       porque o navegador dá min-width:auto por padrão a eles */
     min-width: 0;
 }
 
@@ -830,8 +828,7 @@ p {
 
 .gallery-grid {
     display: grid;
-    grid-template-columns: 1.25fr .85fr .85fr;
-    grid-template-rows: 240px 240px;
+    grid-template-columns: repeat(3, 1fr);
     gap: 16px;
 }
 
@@ -841,23 +838,19 @@ p {
     position: relative;
     background: #ead8c9;
     min-width: 0;
+    aspect-ratio: 3 / 4;
 }
 
-.gallery-item:first-child {
-    grid-row: 1 / 3;
-}
-
+.gallery-item video,
 .gallery-item img {
     width: 100%;
     height: 100%;
-    max-width: none;
     object-fit: cover;
-    object-position: top;
-    transition: transform .45s ease;
+    display: block;
 }
 
-.gallery-item:hover img {
-    transform: scale(1.035);
+.gallery-item video {
+    object-fit: cover;
 }
 
 .gallery-item::after {
@@ -865,6 +858,7 @@ p {
     position: absolute;
     inset: 0;
     background: linear-gradient(to top, rgba(35, 22, 15, .35), transparent 45%);
+    pointer-events: none;
 }
 
 .gallery-caption {
@@ -876,6 +870,7 @@ p {
     font-size: .75rem;
     font-weight: 700;
     letter-spacing: .05em;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 /* ============================================ */
@@ -1300,13 +1295,12 @@ footer p {
     }
 
     .gallery-grid {
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 320px 220px 220px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
     }
 
-    .gallery-item:first-child {
-        grid-column: 1 / 3;
-        grid-row: auto;
+    .gallery-item {
+        aspect-ratio: 3 / 4;
     }
 
     .journey-steps {
@@ -1475,11 +1469,26 @@ footer p {
         grid-auto-flow: column;
         grid-auto-columns: 82%;
         grid-template-columns: none;
-        grid-template-rows: 300px;
+        gap: 14px;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         padding-bottom: 8px;
         -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+    }
+
+    .gallery-grid::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    .gallery-grid::-webkit-scrollbar-track {
+        background: var(--border);
+        border-radius: 4px;
+    }
+
+    .gallery-grid::-webkit-scrollbar-thumb {
+        background: var(--primary);
+        border-radius: 4px;
     }
 
     .gallery-item,
@@ -1487,6 +1496,13 @@ footer p {
         grid-column: auto;
         grid-row: auto;
         scroll-snap-align: start;
+        aspect-ratio: 3 / 4;
+    }
+
+    .gallery-caption {
+        font-size: .7rem;
+        left: 14px;
+        bottom: 12px;
     }
 
     .instagram-grid {
@@ -1585,6 +1601,22 @@ footer p {
 
     .brand-copy strong {
         font-size: .98rem;
+    }
+
+    .gallery-grid {
+        grid-auto-columns: 88%;
+        gap: 12px;
+    }
+
+    .gallery-item {
+        border-radius: 16px;
+        aspect-ratio: 3 / 4;
+    }
+
+    .gallery-caption {
+        font-size: .65rem;
+        left: 12px;
+        bottom: 10px;
     }
 }
 
